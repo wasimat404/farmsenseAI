@@ -1,0 +1,22 @@
+# Core Python Libraries
+numpy
+pandas
+matplotlib
+seaborn
+
+# Deep Learning Framework
+tensorflow==2.15.0
+keras==2.15.0
+
+# Image Processing
+opencv-python
+Pillow
+
+# Model Evaluation
+scikit-learn
+
+# Deployment (optional, if using Flask app)
+Flask
+
+# Jupyter (optional, for notebooks)
+jupyter
