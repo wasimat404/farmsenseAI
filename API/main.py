@@ -11,6 +11,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost",
+    "http://16.171.193.99:3000",
     "http://localhost:3000",
 ]
 app.add_middleware(
@@ -49,4 +50,4 @@ async def predict(file: UploadFile = File(...)):
     return {"class": predicted_class, "confidence": confidence}
 
 if __name__ == "__main__":
-    uvicorn.run(app, host='localhost', port=8000)
+    uvicorn.run(app, host='0.0.0.0', port=8000)

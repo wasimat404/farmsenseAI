@@ -1,1 +1,4 @@
 venv/
+*.backup
+*.backup.*
+test_leaf.jpg
