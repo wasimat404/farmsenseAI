@@ -8,34 +8,24 @@ version: "3.9"
 services:
 
   backend:
-    # Build the API image using the Dockerfile in ./API
     build:
-      context: .                  # build context is the project root (needs access to saved_model/)
+      context: .
       dockerfile: API/Dockerfile
     container_name: farmsense-backend
     ports:
-      - "8000:8000"               # host:container — expose API on host port 8000
+      - "8000:8000"
     restart: unless-stopped
 
   frontend:
-    # Build the React image using the Dockerfile in ./frontend
     build:
-      context: .                  # build context is the project root
+      context: .
       dockerfile: frontend/Dockerfile
+      args:
+        # Baked into the React bundle at build time
+        REACT_APP_API_URL: http://16.171.193.99:8000/predict
     container_name: farmsense-frontend
     ports:
-      - "3000:3000"               # expose React on host port 3000
-    environment:
-      # Points the React app to the backend.
-      # NOTE: This is read at BUILD time by react-scripts. Replace with your
-      # EC2 public IP for production, or use 'http://backend:8000/predict'
-      # only if backend and frontend share a network and the call is made
-      # server-side (it isn't here — the browser makes the call).
-      - REACT_APP_API_URL=http://localhost:8000/predict
+      - "3000:3000"
     depends_on:
-      - backend                   # start backend first
+      - backend
     restart: unless-stopped
-
-# Both services share the default network created by Compose,
-# so the frontend container could reach the backend at http://backend:8000
-# if needed for server-side calls.

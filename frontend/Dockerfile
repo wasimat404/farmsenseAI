@@ -1,9 +1,11 @@
 # Frontend: React app served via Node dev server
-# (For production, you'd build static files + serve via nginx — see comments below)
 FROM node:16-alpine
 
-# Set working directory
 WORKDIR /app
+
+# Accept the API URL at build time (baked into the React bundle)
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
 # Copy package files first for layer caching
 COPY frontend/package.json frontend/package-lock.json /app/
@@ -22,9 +24,3 @@ ENV HOST=0.0.0.0
 
 # Start the dev server
 CMD ["npm", "start"]
-
-# === PRODUCTION ALTERNATIVE (multi-stage) ===
-# For a production-grade image, you'd use a two-stage build:
-#   Stage 1 (builder): npm run build → static files in /app/build
-#   Stage 2 (nginx):   copy /app/build to /usr/share/nginx/html
-# This produces a ~30MB image vs ~500MB for the dev server.
