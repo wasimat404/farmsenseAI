@@ -21,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL = tf.keras.models.load_model("../saved_model")
+MODEL = tf.saved_model.load("../saved_model")
 infer = MODEL.signatures["serving_default"]
 
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
