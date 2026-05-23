@@ -10,9 +10,7 @@ import tensorflow as tf
 app = FastAPI()
 
 origins = [
-    "http://localhost",
-    "http://16.171.193.99:3000",
-    "http://localhost:3000",
+    "*",
 ]
 app.add_middleware(
     CORSMiddleware,

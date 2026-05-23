@@ -22,7 +22,7 @@ services:
       dockerfile: frontend/Dockerfile
       args:
         # Baked into the React bundle at build time
-        REACT_APP_API_URL: http://16.171.193.99:8000/predict
+        REACT_APP_API_URL: http://13.60.215.31:8000/predict
     container_name: farmsense-frontend
     ports:
       - "3000:3000"
